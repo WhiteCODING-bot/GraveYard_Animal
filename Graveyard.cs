@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace CompitiVacanze
@@ -8,7 +6,7 @@ namespace CompitiVacanze
     public class Graveyard
     {
         [JsonInclude]
-        public object[,] graveyard = new object[10, 10];
+        public DeadAnimal[,] graveyard = new DeadAnimal[10, 10];
         public String createGUI()
         {
             String gui = "| ";
@@ -42,7 +40,8 @@ namespace CompitiVacanze
                     graveyard[i, j] = null;
                 }
             }
-            graveyard[0,0] = new DeadAnimal(0,"Francesco", "31/10/2022", "Serpente");
+            graveyard[0,0] = new DeadAnimal(10,"Francesco", "31/10/2022", "Serpente");
+            graveyard[0,1] = new DeadAnimal(1,"Paolo", "31/10/2022", "Canarino");
         }
 
         public string ToJson() { return JsonConvert.SerializeObject(graveyard,Formatting.Indented); }

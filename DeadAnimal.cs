@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace CompitiVacanze
@@ -8,7 +6,7 @@ namespace CompitiVacanze
     public class DeadAnimal
     {
         [JsonInclude]
-        public int id = 0;
+        public int id;
         [JsonInclude]
         public String name;
         [JsonInclude]
@@ -22,15 +20,15 @@ namespace CompitiVacanze
         public String GetById(int id)
         {
             Graveyard grave = new Graveyard();
-            object[,] tmp = (object[,])JsonConvert.DeserializeObject(grave.ToJson());
-            for(int i = 0; i< tmp.Length; i++)
+            var tmp = JsonConvert.DeserializeObject<object[,]>(grave.ToJson());
+            foreach(object animal in tmp)
             {
-                for(int j = 0; j < tmp.Length; j++)
+                if (animal is not null)
                 {
-                    DeadAnimal deadAnimal = (DeadAnimal)tmp[i, j];
-                    if(deadAnimal.GetId() == id)
+                    DeadAnimal stuff = JsonConvert.DeserializeObject<DeadAnimal>(animal.ToString());
+                    if ( stuff.GetId() == id)
                     {
-                        return JsonConvert.SerializeObject(deadAnimal);
+                        return JsonConvert.SerializeObject(stuff);
                     }
                 }
             }
@@ -43,7 +41,7 @@ namespace CompitiVacanze
         public void SetType(String type) { this.type = type; }
 
 
-        public DeadAnimal(){    }
+        public DeadAnimal(){   }
 
         public DeadAnimal(int id, string name, string date, string type)
         {
