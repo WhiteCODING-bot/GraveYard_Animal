@@ -1,11 +1,11 @@
 # CompitiVacanze
-Compito delle vacanze di tpsit
-To DO:
-	-> autoincrement id
-	-> JsonSaver Local
-	-> JsonLoader Local
+Compito delle vacanze di tpsit<br>
+To DO:<br>
+	-> autoincrement id <br>
+	-> JsonSaver Local<br>
+	-> JsonLoader Local<br>
 SET:
-	-> Animal in matrix pos
+	-> Animal in matrix pos<br>
 GET:
-	-> Animal by ID
-	-> Animal by pos
+	-> Animal by ID<br>
+	-> Animal by pos<br>
