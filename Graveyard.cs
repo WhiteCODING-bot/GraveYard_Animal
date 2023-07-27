@@ -33,15 +33,28 @@ namespace CompitiVacanze
             }
             return gui;
         }
-        public Graveyard()
+        public void populate()
         {
-            int len  = graveyard.GetLength(0);
-            for(int i = 0; i < len; i++)
+            int len = graveyard.GetLength(0);
+            for (int i = 0; i < len; i++)
             {
                 for (int j = 0; j < len; j++)
                 {
                     graveyard[i, j] = null;
                 }
+            }
+        }
+        public Graveyard()
+        {
+            if(graveyard == null)
+            {
+                Console.WriteLine("Il cimitero è null");
+                populate();
+            }
+            else
+            {
+                Console.WriteLine("Il cimitero non è null");
+                return;
             }
         }
         public void showGraveyard()
@@ -58,11 +71,13 @@ namespace CompitiVacanze
         public string ToJson() { return JsonConvert.SerializeObject(graveyard,Formatting.Indented); }
         public String SetNewAnimal(int col, int row, String name, String date, String tipo)
         {
-            if (this.graveyard[col,row] == null)
+            DeadAnimal[,] relay = graveyard;
+            if (relay[col,row] == null)
             {
-                this.graveyard[col, row] = new DeadAnimal(random.Next(100), name, date, tipo);
+                relay[col, row] = new DeadAnimal(random.Next(100), name, date, tipo);
+                this.graveyard = relay;
                 Console.WriteLine(this.createGUI());
-                return JsonConvert.SerializeObject(this.graveyard[col, row]);
+                return JsonConvert.SerializeObject(relay[col, row]);
             }
             else
             {
