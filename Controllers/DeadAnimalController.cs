@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
 
 namespace CompitiVacanze.Controllers
 {
@@ -15,22 +14,32 @@ namespace CompitiVacanze.Controllers
 
         public DeadAnimalController(ILogger<DeadAnimalController> logger)
         {
-            
             _logger = logger;
         }
 
 
         [HttpPut]
-        public void SetAnimal(int col, int row, String name, String date, String tipo) => graveyard.SetNewAnimal(col, row, name, date, tipo);
-        
+        public String SetAnimal(int col, int row, String name, String date, String tipo)
+        {
+            switch(graveyard.SetNewAnimal(col, row, name, date, tipo))
+            {
+                case 0:
+                    return "Animale aggiunto";
+                case -1:
+                    return "Errore data\nRicontrollare";
+                case -2:
+                    return "Posizione Occupata\nSelezionare una nuova cella";
+                case -3:
+                    return "Errore di formattazione data\nRicontrollare";
+            }
+            return "ok";
+        }
         //TUTTE LE GET
         [HttpGet("{col},{row}")]
-        public String GetAnimal(int col,int row) => deadAnimal.GetById(col,row);
+        public String GetAnimal(int col,int row) => deadAnimal.GetByPos(col,row);
 
         [HttpGet(Name = "Graveyard")]
         public String GetGraveyard() => graveyard.createGUI();
-        [HttpGet]
-        public String[] GetAllInfo() => crud.SelectAll();
-    
+
     }
 }

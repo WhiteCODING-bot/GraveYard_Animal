@@ -4,7 +4,6 @@ namespace CompitiVacanze
 {
     public class CRUD_GraveYard
     {
-        //CRUD PER "Controllers\graveyard.db"
         private SqliteConnection connection = null;
         public int GetRowCount()
         {
@@ -38,24 +37,23 @@ namespace CompitiVacanze
         }
 
         public CRUD_GraveYard() { }
-        public void Insert(int col, int row, int id, String name, String date, String type)
+        public void Insert(int col, int row, String name, String date, String type)
         {
             connection = Connect();
             SqliteCommand cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO GraveYard VALUES (" +
                 col + "," +
-                row + "," +
-                id + ",'" +
+                row + ",'" +
                 name + "','" +
                 date + "','" +
                 type + "');";
             cmd.ExecuteNonQuery();
         }
-        public void Delete(int id)
+        public void Delete(String name)
         {
             connection = Connect();
             SqliteCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "DELETE * FROM GraveYard WHERE id = " + id + ";";
+            cmd.CommandText = "DELETE * FROM GraveYard WHERE name = " + name + ";";
         }
         public String[] SelectAll()
         {
@@ -67,7 +65,7 @@ namespace CompitiVacanze
             int i = 0;
             while (reader.Read())
             {
-                ret[i] = reader.GetString(0) + "," + reader.GetString(1) + "," + reader.GetString(2) + "," + reader.GetString(3) + "," + reader.GetString(4) + "," + reader.GetString(5);
+                ret[i] = reader.GetString(0) + "," + reader.GetString(1) + "," + reader.GetString(2) + "," + reader.GetString(3) + "," + reader.GetString(4);
                 i++;
             }
             connection.Close();
