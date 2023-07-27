@@ -10,28 +10,27 @@ namespace CompitiVacanze.Controllers
     {
         DeadAnimal deadAnimal = new DeadAnimal();
         Graveyard graveyard = new Graveyard();
-        private SqliteConnection connection = new SqliteConnection("Data Source = graveyard.db");
-
+        CRUD_GraveYard crud = new CRUD_GraveYard();
         private readonly ILogger<DeadAnimalController> _logger;
 
         public DeadAnimalController(ILogger<DeadAnimalController> logger)
         {
-            Console.WriteLine("Nuovo controller");
+            
             _logger = logger;
         }
 
 
         [HttpPut]
-        public String SetAnimal(int col, int row, String name, String date, String tipo) => graveyard.SetNewAnimal(col, row, name, date, tipo);
+        public void SetAnimal(int col, int row, String name, String date, String tipo) => graveyard.SetNewAnimal(col, row, name, date, tipo);
         
         //TUTTE LE GET
-        [HttpGet("{id}")]
-        public String GetAnimal(int id) => deadAnimal.GetById(id);
+        [HttpGet("{col},{row}")]
+        public String GetAnimal(int col,int row) => deadAnimal.GetById(col,row);
 
         [HttpGet(Name = "Graveyard")]
-        public String GetGraveyard()
-        {
-            return graveyard.createGUI();
-        }
+        public String GetGraveyard() => graveyard.createGUI();
+        [HttpGet]
+        public String[] GetAllInfo() => crud.SelectAll();
+    
     }
 }

@@ -17,22 +17,9 @@ namespace CompitiVacanze
         public String GetName() { return name; }
         public String GetDate() { return date; }
         public String GetAnimal() { return type; }
-        public String GetById(int id)
+        public String GetById(int col, int row)
         {
-            Graveyard grave = new Graveyard();
-            var tmp = JsonConvert.DeserializeObject<object[,]>(grave.ToJson());
-            foreach(object animal in tmp)
-            {
-                if (animal is not null)
-                {
-                    DeadAnimal stuff = JsonConvert.DeserializeObject<DeadAnimal>(animal.ToString());
-                    if ( stuff.GetId() == id)
-                    {
-                        return JsonConvert.SerializeObject(stuff);
-                    }
-                }
-            }
-            return "Non trovato";
+            return "ok";
         }
 
         public void SetId(int id) {this.id = id; }
