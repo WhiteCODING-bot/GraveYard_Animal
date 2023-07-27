@@ -4,8 +4,7 @@ To DO:<br>
 	-> autoincrement id <br>
 	-> JsonSaver Local<br>
 	-> JsonLoader Local<br>
-SET:
+SET: <br>
 	-> Animal in matrix pos<br>
-GET:
-	-> Animal by ID<br>
+GET: <br>
 	-> Animal by pos<br>
