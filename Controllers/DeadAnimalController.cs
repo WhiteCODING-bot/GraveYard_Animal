@@ -8,35 +8,26 @@ namespace CompitiVacanze.Controllers
     {
         DeadAnimal deadAnimal = new DeadAnimal();
         Graveyard graveyard = new Graveyard();
+        Random random = new Random();
 
         private readonly ILogger<DeadAnimalController> _logger;
 
         public DeadAnimalController(ILogger<DeadAnimalController> logger)
         {
-            //PER TESTING
-            deadAnimal.SetName("Fufi");
-            deadAnimal.SetDate("07/04/23");
-            deadAnimal.SetType("Cane");
-            //FINE SEZIONE TEST
             _logger = logger;
         }
 
+
+        [HttpPut]
+        public String SetAnimal(int col, int row, String name, String date, String tipo) => graveyard.SetNewAnimal(col, row, name, date, tipo);
         //TUTTE LE GET
-
-        [HttpGet(Name = "Name")]
-        public string GetName() => deadAnimal.GetName();
-
-        [HttpGet(Name = "Date")]
-        public String GetDate() => deadAnimal.GetDate();
-
-        [HttpGet(Name = "Type")]
-        public String GetType() => deadAnimal.GetAnimal();
-
         [HttpGet("{id}")]
         public String GetAnimal(int id) => deadAnimal.GetById(id);
 
         [HttpGet(Name = "Graveyard")]
-        public String GetGraveyard() => graveyard.createGUI();
-
+        public String GetGraveyard()
+        {
+            return graveyard.createGUI();
+        }
     }
 }

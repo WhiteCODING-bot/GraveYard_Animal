@@ -7,26 +7,29 @@ namespace CompitiVacanze
     {
         [JsonInclude]
         public DeadAnimal[,] graveyard = new DeadAnimal[10, 10];
+        Random random = new Random();
         public String createGUI()
         {
-            String gui = "| ";
-            int len  = graveyard.GetLength(0);
-            for(int i = 0; len > i; i++)
+            String gui = String.Empty;
+            int len = graveyard.GetLength(0);
+            for (int i = 0; len > i; i++)
             {
+                gui += "| ";
                 for (int j = 0; j < len; j++)
                 {
-                    if (graveyard[i,j] == null)
+                    switch (graveyard[i, j])
                     {
-                        gui += " O ";
-                    }
-                    else
-                    {
-                        gui += " X ";
+                        case null:
+                            gui += " 0 ";
+                            break;
+
+                        case DeadAnimal:
+                            gui += " X ";
+                            break;
                     }
                     gui += " | ";
                 }
-                gui += "\n| ";
-
+                gui += "\n";
             }
             return gui;
         }
@@ -40,12 +43,32 @@ namespace CompitiVacanze
                     graveyard[i, j] = null;
                 }
             }
-            graveyard[0,0] = new DeadAnimal(10,"Francesco", "31/10/2022", "Serpente");
-            graveyard[0,1] = new DeadAnimal(1,"Paolo", "31/10/2022", "Canarino");
         }
-
+        public void showGraveyard()
+        {
+            Console.Clear();
+            for(int i = 0;i < graveyard.GetLength(0); i++)
+            {
+                for (int j = 0; j < graveyard.GetLength(1); j++)
+                {
+                    Console.WriteLine("Col: " + i + "\nRow: " + j + "\nAnimal: " + graveyard[i, j]);
+                }
+            }
+        }
         public string ToJson() { return JsonConvert.SerializeObject(graveyard,Formatting.Indented); }
-
+        public String SetNewAnimal(int col, int row, String name, String date, String tipo)
+        {
+            if (this.graveyard[col,row] == null)
+            {
+                this.graveyard[col, row] = new DeadAnimal(random.Next(100), name, date, tipo);
+                Console.WriteLine(this.createGUI());
+                return JsonConvert.SerializeObject(this.graveyard[col, row]);
+            }
+            else
+            {
+                return "Cella occupata";
+            }
+        }
     }
 
 }
