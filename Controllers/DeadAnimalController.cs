@@ -17,7 +17,6 @@ namespace CompitiVacanze.Controllers
             _logger = logger;
         }
 
-
         [HttpPut]
         public String SetAnimal(int col, int row, String name, String date, String tipo)
         {
@@ -31,6 +30,10 @@ namespace CompitiVacanze.Controllers
                     return "Posizione Occupata\nSelezionare una nuova cella";
                 case -3:
                     return "Errore di formattazione data\nRicontrollare";
+                case -4:
+                    return "Il Nome non può essere null\nRicontrollare";
+                case -5:
+                    return "Il tipo inserito non può essere null\nRicontrollare";
             }
             return "ok";
         }

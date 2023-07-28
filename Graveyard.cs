@@ -95,7 +95,21 @@ namespace CompitiVacanze
         {
             if(checkDate(date) != 0)    return checkDate(date);
             if(checkPos(col,row) != 0)  return -2;
+            if(checkValidName(name) != 0) return -4;
+            if(checkValidType(tipo) != 0) return -5;
             crud.Insert(col, row, name, date, tipo);
+            return 0;
+        }
+
+        private int checkValidType(string tipo)
+        {
+            if(tipo == "null" || tipo == "NULL" || tipo.Length == 0) return -5;
+            return 0;
+        }
+
+        private int checkValidName(String name)
+        {
+            if (name == "null" || name == "NULL"|| name.Length == 0) return -4;
             return 0;
         }
 
